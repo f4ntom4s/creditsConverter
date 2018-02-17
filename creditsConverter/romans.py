@@ -44,7 +44,9 @@ class RomanNumber(object):
         rests_in_current_level = False
         current_level = self.roman_number[-1].level
 
+        #start to read the roman number backwards or throws exception
         for roman in reversed(self.roman_number):
+            #check if the literal is repeatable
             if previous == roman:
                 if not roman.repeatable:
                     raise ValueError("Wrong roman number format")
@@ -53,15 +55,18 @@ class RomanNumber(object):
                 if roman < previous and previous_count > 0:
                     raise ValueError("Wrong roman number format"    )
                 previous_count = 0
-
+            #if it repeatable check the count of repeats
             if previous_count >= 3:
                 raise ValueError("Wrong roman number format")
+            #if it equal or more than the current number and in the same level, it can be summed
             if roman >= previous:
                 if current_level < roman.level:
                     rests_in_current_level = False
                 current_level = roman.level
                 result += roman.value
             else:
+                #else it is rested but with some conditions, must not be more rests in
+                #the current level and mus be of the same level
                 if current_level - roman.level == 1 and not rests_in_current_level:
                     result -= roman.value
                     rests_in_current_level = True
