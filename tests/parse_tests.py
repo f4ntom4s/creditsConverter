@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../')
+sys.path.append('../creditsConverter')
 
 import unittest
 from creditsConverter.parser import Parser
